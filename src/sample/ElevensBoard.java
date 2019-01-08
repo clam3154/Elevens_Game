@@ -54,11 +54,7 @@ public class ElevensBoard extends Board {
      */
     @Override
     public boolean isLegal(List<Integer> selectedCards) {
-        if(containsJQK(selectedCards) || containsPairSum11(selectedCards))
-        {
-            return true;
-        }
-        return false;
+        return (containsPairSum11(selectedCards) || containsJQK(selectedCards));
     }
 
     /**
@@ -71,7 +67,7 @@ public class ElevensBoard extends Board {
      */
     @Override
     public boolean anotherPlayIsPossible() {
-        /* *** TO BE IMPLEMENTED IN ACTIVITY 9 *** */
+        return isLegal(this.cardIndexes());
     }
 
     /**
@@ -84,14 +80,17 @@ public class ElevensBoard extends Board {
      */
     private boolean containsPairSum11(List<Integer> selectedCards)
     {
+        /* *** TO BE IMPLEMENTED IN ACTIVITY 9 *** */
+        int sum = 0;
         if (selectedCards.size() == 2)
         {
-            for(int i = 0; i< selectedCards.size(); i++)
+            for(int i : selectedCards)
             {
-                if(selectedCards.get(0) + selectedCards.get(1) == 11)
-                {
-                    return true;
-                }
+                sum += this.cardAt(i).getPointValue();
+            }
+            if(sum == 11)
+            {
+                return true;
             }
         }
         return false;
@@ -106,16 +105,25 @@ public class ElevensBoard extends Board {
      *              include a jack, a queen, and a king; false otherwise.
      */
     private boolean containsJQK(List<Integer> selectedCards) {
-        if (selectedCards.size() == 3)
+        /* *** TO BE IMPLEMENTED IN ACTIVITY 9 *** */
+        boolean jFound = false;
+        boolean qFound = false;
+        boolean kFound = false;
+        for(int i : selectedCards)
         {
-            for(int i = 0; i< selectedCards.size(); i++)
+            if(this.cardAt(i).getRank().contains("jack"))
             {
-                if(selectedCards.contains("jack") && selectedCards.contains("queen") && selectedCards.contains("king"))
-                {
-                    return true;
-                }
+                jFound = true;
+            }
+            else if(this.cardAt(i).getRank().contains("queen"))
+            {
+                qFound = true;
+            }
+            else if(this.cardAt(i).getRank().contains("king"))
+            {
+                kFound = true;
             }
         }
-        return false;
+        return (jFound && qFound && kFound);
     }
 }
