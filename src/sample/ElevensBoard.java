@@ -86,12 +86,12 @@ public class ElevensBoard extends Board {
         {
             for(int i : selectedCards)
             {
-                sum += this.cardAt(i).getPointValue();
+                sum += this.cardAt(i).pointValue();
             }
             if(sum == 11)
             {
                 return true;
-            }
+        }
         }
         return false;
     }
@@ -111,15 +111,15 @@ public class ElevensBoard extends Board {
         boolean kFound = false;
         for(int i : selectedCards)
         {
-            if(this.cardAt(i).getRank().contains("jack"))
+            if(this.cardAt(i).rank().contains("jack"))
             {
                 jFound = true;
             }
-            else if(this.cardAt(i).getRank().contains("queen"))
+            else if(this.cardAt(i).rank().contains("queen"))
             {
                 qFound = true;
             }
-            else if(this.cardAt(i).getRank().contains("king"))
+            else if(this.cardAt(i).rank().contains("king"))
             {
                 kFound = true;
             }
