@@ -35,8 +35,6 @@ public class ElevensBoard extends Board {
      */
     private static final boolean I_AM_DEBUGGING = false;
 
-    ArrayList<Integer> selected;
-
     /**
      * Creates a new <code>ElevensBoard</code> instance.
      */
@@ -68,20 +66,15 @@ public class ElevensBoard extends Board {
      */
     @Override
     public boolean anotherPlayIsPossible() {
-        selected = new ArrayList<Integer>();
         for(int i = 0; i < this.cardIndexes().size()-1; i++)
         {
-            selected.add(i);
             for(int j = i+1; j < this.cardIndexes().size(); j++)
             {
-                selected.add(j);
-                if(isLegal(selected))
+                if(cardAt(this.cardIndexes().get(i)).pointValue()+cardAt(this.cardIndexes().get(j)).pointValue()==11||containsCJQK(this.cardIndexes()))
                 {
                     return true;
                 }
             }
-            selected.remove(0);
-            selected.remove(0);
         }
         return false;
     }
@@ -121,6 +114,29 @@ public class ElevensBoard extends Board {
      *              include a jack, a queen, and a king; false otherwise.
      */
     private boolean containsJQK(List<Integer> selectedCards) {
+        /* *** TO BE IMPLEMENTED IN ACTIVITY 9 *** */
+        boolean jFound = false;
+        boolean qFound = false;
+        boolean kFound = false;
+        for(int i : selectedCards)
+        {
+            if(this.cardAt(i).rank().contains("jack"))
+            {
+                jFound = true;
+            }
+            else if(this.cardAt(i).rank().contains("queen"))
+            {
+                qFound = true;
+            }
+            else if(this.cardAt(i).rank().contains("king"))
+            {
+                kFound = true;
+            }
+        }
+        return (jFound && qFound && kFound && selectedCards.size()==3);
+    }
+
+    private boolean containsCJQK(List<Integer> selectedCards) {
         /* *** TO BE IMPLEMENTED IN ACTIVITY 9 *** */
         boolean jFound = false;
         boolean qFound = false;
