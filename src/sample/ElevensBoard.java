@@ -67,7 +67,20 @@ public class ElevensBoard extends Board {
      */
     @Override
     public boolean anotherPlayIsPossible() {
-        return isLegal(this.cardIndexes());
+        List<Integer> selected = null;
+        for(int i = 0; i < this.cardIndexes().size()-1; i++)
+        {
+            selected.set(0,i);
+            for(int j = i+1; j < this.cardIndexes().size(); j++)
+            {
+                selected.set(1,j);
+                if(isLegal(selected))
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     /**
