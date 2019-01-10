@@ -71,15 +71,17 @@ public class ElevensBoard extends Board {
         selected = new ArrayList<Integer>();
         for(int i = 0; i < this.cardIndexes().size()-1; i++)
         {
-            selected.set(0,i);
+            selected.add(i);
             for(int j = i+1; j < this.cardIndexes().size(); j++)
             {
-                selected.set(1,j);
+                selected.add(j);
                 if(isLegal(selected))
                 {
                     return true;
                 }
             }
+            selected.remove(0);
+            selected.remove(0);
         }
         return false;
     }
