@@ -35,6 +35,7 @@ public class ElevensBoard extends Board {
      */
     private static final boolean I_AM_DEBUGGING = false;
 
+    ArrayList<Integer> selected;
 
     /**
      * Creates a new <code>ElevensBoard</code> instance.
@@ -67,7 +68,7 @@ public class ElevensBoard extends Board {
      */
     @Override
     public boolean anotherPlayIsPossible() {
-        List<Integer> selected = null;
+        selected = new ArrayList<Integer>();
         for(int i = 0; i < this.cardIndexes().size()-1; i++)
         {
             selected.set(0,i);
