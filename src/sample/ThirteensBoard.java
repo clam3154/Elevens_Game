@@ -9,7 +9,7 @@ public class ThirteensBoard extends Board {
     /**
      * The size (number of cards) on the board.
      */
-    private static final int BOARD_SIZE = 9;
+    private static final int BOARD_SIZE = 10;
 
     /**
      * The ranks of the cards for this game to be sent to the deck.
@@ -27,7 +27,7 @@ public class ThirteensBoard extends Board {
      * The values of the cards for this game to be sent to the deck.
      */
     private static final int[] POINT_VALUES =
-            {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 0, 0, 0};
+            {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13};
 
     /**
      * Flag used to control debugging print statements.
@@ -52,7 +52,7 @@ public class ThirteensBoard extends Board {
      */
     @Override
     public boolean isLegal(List<Integer> selectedCards) {
-        return (containsPairSum11(selectedCards) || containsJQK(selectedCards));
+        return (containsPairSum13(selectedCards));
     }
 
     /**
@@ -69,7 +69,7 @@ public class ThirteensBoard extends Board {
         {
             for(int j = i+1; j < this.cardIndexes().size(); j++)
             {
-                if(cardAt(this.cardIndexes().get(i)).pointValue()+cardAt(this.cardIndexes().get(j)).pointValue()==11||containsCJQK(this.cardIndexes()))
+                if(cardAt(this.cardIndexes().get(i)).pointValue()+cardAt(this.cardIndexes().get(j)).pointValue()==13 || this.cardIndexes().get(i) == 13 || this.cardIndexes().get(j) == 13)
                 {
                     return true;
                 }
@@ -79,82 +79,28 @@ public class ThirteensBoard extends Board {
     }
 
     /**
-     * Check for an 11-pair in the selected cards.
+     * Check for an 13-pair in the selected cards.
      * @param selectedCards selects a subset of this board.  It is list
      *                      of indexes into this board that are searched
-     *                      to find an 11-pair.
+     *                      to find an 13-pair.
      * @return true if the board entries in selectedCards
-     *              contain an 11-pair; false otherwise.
+     *              contain an 13-pair; false otherwise.
      */
-    private boolean containsPairSum11(List<Integer> selectedCards)
+    private boolean containsPairSum13(List<Integer> selectedCards)
     {
         /* *** TO BE IMPLEMENTED IN ACTIVITY 9 *** */
         int sum = 0;
-        if (selectedCards.size() == 2)
+        if (selectedCards.size() <= 2)
         {
             for(int i : selectedCards)
             {
                 sum += this.cardAt(i).pointValue();
             }
-            if(sum == 11)
+            if(sum == 13)
             {
                 return true;
         }
         }
         return false;
-    }
-
-    /**
-     * Check for a JQK in the selected cards.
-     * @param selectedCards selects a subset of this board.  It is list
-     *                      of indexes into this board that are searched
-     *                      to find a JQK group.
-     * @return true if the board entries in selectedCards
-     *              include a jack, a queen, and a king; false otherwise.
-     */
-    private boolean containsJQK(List<Integer> selectedCards) {
-        /* *** TO BE IMPLEMENTED IN ACTIVITY 9 *** */
-        boolean jFound = false;
-        boolean qFound = false;
-        boolean kFound = false;
-        for(int i : selectedCards)
-        {
-            if(this.cardAt(i).rank().contains("jack"))
-            {
-                jFound = true;
-            }
-            else if(this.cardAt(i).rank().contains("queen"))
-            {
-                qFound = true;
-            }
-            else if(this.cardAt(i).rank().contains("king"))
-            {
-                kFound = true;
-            }
-        }
-        return (jFound && qFound && kFound && selectedCards.size()==3);
-    }
-
-    private boolean containsCJQK(List<Integer> selectedCards) {
-        /* *** TO BE IMPLEMENTED IN ACTIVITY 9 *** */
-        boolean jFound = false;
-        boolean qFound = false;
-        boolean kFound = false;
-        for(int i : selectedCards)
-        {
-            if(this.cardAt(i).rank().contains("jack"))
-            {
-                jFound = true;
-            }
-            else if(this.cardAt(i).rank().contains("queen"))
-            {
-                qFound = true;
-            }
-            else if(this.cardAt(i).rank().contains("king"))
-            {
-                kFound = true;
-            }
-        }
-        return (jFound && qFound && kFound);
     }
 }
